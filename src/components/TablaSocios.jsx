@@ -1,8 +1,9 @@
 import React, { Fragment, useState } from "react";
-import Table from "react-bootstrap/Table";
+import { Table, Button } from "react-bootstrap";
 
-const TablaSocios = ({ socios }) => {
+const TablaSocios = ({ socios, eliminarSocio }) => {
   //Listar socios
+
 
   const listarSocios = (socios) => {
     return socios.map((socio, index) => (
@@ -11,6 +12,11 @@ const TablaSocios = ({ socios }) => {
         <td>{socio.id}</td>
         <td>{socio.nombre}</td>
         <td>{socio.dni}</td>
+        <td>
+          <Button variant="danger" onClick={() => eliminarSocio(socio.id)}>
+            Eliminar
+          </Button>
+        </td>
       </tr>
     ));
   };
@@ -27,6 +33,7 @@ const TablaSocios = ({ socios }) => {
               <th>ID</th>
               <th>Nombre</th>
               <th>DNI</th>
+              <th>Eliminar</th>
             </tr>
           </thead>
           <tbody>{listarSocios(socios)}</tbody>
