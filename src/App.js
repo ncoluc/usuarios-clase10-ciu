@@ -9,10 +9,7 @@ import TablaSocios from "./components/TablaSocios";
 
 function App() {
   //Iniciamos nuestro local storage
-  let clientesGuardados = JSON.parse(localStorage.getItem("clientes"));
-  if (!clientesGuardados) {
-    clientesGuardados = [];
-  }
+  let clientesGuardados = JSON.parse(localStorage.getItem("clientes")) || [];
 
   //Generar un hook de estado vacio con los diferentes clientes de la veterinaria
   const [clientes, editarClientes] = useState(clientesGuardados);
@@ -24,19 +21,14 @@ function App() {
 
   //Funcion para borrar cliente
   const eliminarSocio = (id) => {
-    const nuevosClientes = clientes.filter((cliente) => cliente.id !== id);
-    editarClientes(nuevosClientes);
+    editarClientes(clientes.filter((cliente) => cliente.id !== id));
   };
 
   //Hook useEffect: Sirve para ejecutar alguna funcionalidad cuando hay un cambio
   //en alguna variable/hook/situacion
   useEffect(() => {
-    if (clientesGuardados) {
       localStorage.setItem("clientes", JSON.stringify(clientes));
-    } else {
-      localStorage.setItem("clientes", JSON.stringify([]));
-    }
-  }, [clientesGuardados]);
+  }, [clientes]);
 
   return (
     <Fragment>
